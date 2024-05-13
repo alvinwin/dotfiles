@@ -1,9 +1,9 @@
 # Dotfiles Repository
 
-This repository contains my personal dotfiles--focusing on a `tmux` configuration that enhances the command-line interface by enabling features such as mouse support, Vi-like key bindings, and aesthetic enhancements through themes.
+This repository contains my personal dotfiles--focusing on a `tmux` configuration that enhances the command-line interface by enabling features such as mouse support, `Vi`-like key bindings, and aesthetic enhancements through themes.
 
 
-- **.tmux.conf**: `Tmux` configuration file with enhanced keybindings and theme settings.
+- **`.tmux.conf`**: `Tmux` configuration file with enhanced keybindings and theme settings.
 
 ## Features
 
