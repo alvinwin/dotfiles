@@ -12,3 +12,6 @@ vim.opt.clipboard:append('unnamedplus')
 
 -- GUI Font setting
 vim.opt.guifont = 'JetBrains Mono:h12'
+
+-- Map <leader>d to delete all lines
+vim.api.nvim_set_keymap('n', '<leader>d', ':%d<CR>', { noremap = true, silent = true })
