@@ -1,0 +1,8 @@
+{
+  "$schema": "https://opencode.ai/tui.json",
+  "theme": "rose-pine",
+  "keybinds": {
+    "messages_previous": "alt+up",
+    "messages_next": "alt+down"
+  }
+}

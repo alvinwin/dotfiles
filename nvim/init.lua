@@ -95,11 +95,18 @@ if lazy_ok then
         icons = { mappings = false },
         spec = {
           { "<leader>f", group = "find/search" },
+          { "<leader>g", group = "git" },
           { "<leader>h", group = "harpoon" },
+          { "<leader>m", group = "markdown" },
+          { "<leader>p", group = "plugins" },
+          { "<leader>q", group = "macros/registers" },
         },
       },
       keys = {
         { "<leader>?", function() require("which-key").show({ global = false }) end, desc = "Buffer local keymaps" },
+        { "<leader>pl", "<cmd>Lazy<cr>", desc = "Plugin manager" },
+        { "<leader>qm", "<cmd>help recording<cr>", desc = "Macro recording help" },
+        { "<leader>qr", "<cmd>registers<cr>", desc = "Show registers" },
       },
     },
     {
@@ -157,6 +164,125 @@ if lazy_ok then
       config = function()
         require("harpoon"):setup()
       end,
+    },
+    {
+      "rose-pine/neovim",
+      name = "rose-pine",
+      lazy = false,
+      priority = 1000,
+      config = function()
+        require("rose-pine").setup({
+          variant = "auto",
+          dark_variant = "main",
+          dim_inactive_windows = true,
+          extend_background_behind_borders = true,
+        })
+
+        local function apply_rose_pine()
+          local variant
+          if vim.env.TMUX and vim.fn.executable("tmux") == 1 then
+            variant = vim.trim(vim.fn.system({ "tmux", "show-option", "-gqv", "@rose_pine_variant" }))
+          end
+          if variant ~= "dawn" and variant ~= "dark" then
+            local hour = tonumber(os.date("%H"))
+            variant = hour and hour >= 7 and hour < 18 and "dawn" or "dark"
+          end
+
+          local background = variant == "dawn" and "light" or "dark"
+          if vim.o.background ~= background or vim.g.rose_pine_tmux_variant ~= variant then
+            vim.o.background = background
+            vim.g.rose_pine_tmux_variant = variant
+            vim.cmd.colorscheme("rose-pine")
+          end
+        end
+
+        apply_rose_pine()
+        vim.api.nvim_create_autocmd("FocusGained", {
+          desc = "Follow the active tmux Rose Pine variant",
+          callback = apply_rose_pine,
+        })
+      end,
+    },
+    {
+      "nvim-lualine/lualine.nvim",
+      event = "VeryLazy",
+      config = function()
+        local function macro_recording()
+          local register = vim.fn.reg_recording()
+          return register == "" and "" or "recording @" .. register
+        end
+
+        require("lualine").setup({
+          options = {
+            theme = "auto",
+            globalstatus = true,
+            section_separators = "",
+            component_separators = "",
+          },
+          sections = {
+            lualine_a = { "mode" },
+            lualine_b = { "branch" },
+            lualine_c = { { "filename", path = 1 } },
+            lualine_x = { macro_recording, "diagnostics" },
+            lualine_y = { "progress" },
+            lualine_z = { "location" },
+          },
+        })
+
+        vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
+          desc = "Refresh macro recording state in the statusline",
+          callback = function() require("lualine").refresh() end,
+        })
+      end,
+    },
+    {
+      "lewis6991/gitsigns.nvim",
+      event = { "BufReadPre", "BufNewFile" },
+      opts = {
+        signs = {
+          add = { text = "+" },
+          change = { text = "~" },
+          delete = { text = "_" },
+          topdelete = { text = "‾" },
+          changedelete = { text = "~" },
+          untracked = { text = "┆" },
+        },
+        on_attach = function(buffer)
+          local gitsigns = require("gitsigns")
+          local function map(lhs, rhs, desc)
+            vim.keymap.set("n", lhs, rhs, { buffer = buffer, desc = desc })
+          end
+
+          map("]h", function() gitsigns.nav_hunk("next") end, "Next Git hunk")
+          map("[h", function() gitsigns.nav_hunk("prev") end, "Previous Git hunk")
+          map("<leader>gp", gitsigns.preview_hunk, "Preview Git hunk")
+          map("<leader>gs", gitsigns.stage_hunk, "Stage Git hunk")
+          map("<leader>gu", gitsigns.undo_stage_hunk, "Undo staged Git hunk")
+          map("<leader>gb", function() gitsigns.blame_line({ full = true }) end, "Blame Git line")
+        end,
+      },
+    },
+    {
+      "OXY2DEV/markview.nvim",
+      lazy = false,
+      opts = {
+        markdown = {
+          headings = {
+            heading_1 = { sign = "", icon = "◆  " },
+            heading_2 = { sign = "", icon = "◇  " },
+            heading_3 = { icon = "▪  " },
+            heading_4 = { icon = "▫  " },
+            heading_5 = { icon = "•  " },
+            heading_6 = { icon = "·  " },
+            setext_1 = { sign = "", icon = "◆  " },
+            setext_2 = { sign = "", icon = "◇  " },
+          },
+        },
+      },
+      keys = {
+        { "<leader>mp", "<cmd>Markview toggle<cr>", desc = "Markdown preview toggle" },
+        { "<leader>ms", "<cmd>Markview splitToggle<cr>", desc = "Markdown split preview" },
+      },
     },
   }, {
     checker = { enabled = false },
