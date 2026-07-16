@@ -41,6 +41,39 @@ opt.sidescrolloff = 4
 opt.confirm = true
 opt.mouse = ""
 
+local function clean_wrapped_prose()
+  local mode = vim.fn.mode()
+  local mark_a = mode:match("[vV\22]") and vim.fn.line("v") or vim.fn.line("'<")
+  local mark_b = mode:match("[vV\22]") and vim.fn.line(".") or vim.fn.line("'>")
+  local first = math.min(mark_a, mark_b) - 1
+  local last = math.max(mark_a, mark_b)
+  local lines = vim.api.nvim_buf_get_lines(0, first, last, false)
+  local cleaned = {}
+
+  for _, line in ipairs(lines) do
+    line = line:gsub("^%s+", "")
+    local previous = cleaned[#cleaned]
+    local starts_structure = line:match("^[-*+] ")
+      or line:match("^%d+[.)] ")
+      or line:match("^#+ ")
+      or line:match("^> ")
+      or line:match("^```")
+
+    if line == "" or not previous or previous == "" or starts_structure then
+      table.insert(cleaned, line)
+    else
+      local separator = previous:match("[/._=-]$") and "" or " "
+      cleaned[#cleaned] = previous .. separator .. line
+    end
+  end
+
+  vim.api.nvim_buf_set_lines(0, first, last, false, cleaned)
+end
+
+vim.keymap.set("x", "<leader>cl", clean_wrapped_prose, {
+  desc = "Clean terminal-wrapped prose",
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Briefly highlight yanked text",
   callback = function()
