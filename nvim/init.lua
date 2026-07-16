@@ -74,6 +74,32 @@ vim.keymap.set("x", "<leader>cl", clean_wrapped_prose, {
   desc = "Clean terminal-wrapped prose",
 })
 
+local function insert_response_after(last)
+  vim.api.nvim_buf_set_lines(0, last, last, false, { "> " })
+  vim.api.nvim_win_set_cursor(0, { last + 1, 1 })
+  vim.schedule(function()
+    vim.cmd("startinsert!")
+  end)
+end
+
+local function compose_response()
+  local anchor = vim.fn.line("v")
+  local cursor = vim.fn.line(".")
+
+  vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "nx", false)
+  insert_response_after(math.max(anchor, cursor))
+end
+
+vim.keymap.set("x", "<leader>cr", compose_response, {
+  desc = "Compose response below line/selection",
+})
+
+vim.keymap.set("n", "<leader>cr", function()
+  insert_response_after(vim.fn.line("."))
+end, {
+  desc = "Compose response below line/selection",
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Briefly highlight yanked text",
   callback = function()
@@ -127,6 +153,7 @@ if lazy_ok then
         preset = "modern",
         icons = { mappings = false },
         spec = {
+          { "<leader>c", group = "text actions", mode = { "n", "x" } },
           { "<leader>f", group = "find/search" },
           { "<leader>g", group = "git" },
           { "<leader>h", group = "harpoon" },

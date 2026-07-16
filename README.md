@@ -68,6 +68,7 @@ other tools or be removed separately from `~/.local/bin/bun`.
 
 - WSL clipboard integration through `win32yank.exe`
 - Terminal-wrapped prose cleanup with `<leader>cl`
+- Response composition below the current line or visual selection with `<leader>cr`
 - lazy.nvim plugin management
 - Telescope, Harpoon, Flash, WhichKey, Gitsigns, Markview, Smear Cursor, and Hardtime
 - Rosé Pine synchronized with the active tmux variant
