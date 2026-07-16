@@ -26,7 +26,7 @@ ln -s ~/dotfiles/nvim ~/.config/nvim
 
 - Mouse support and vi-style copy mode
 - Vim-style pane navigation and resizing
-- Fuzzy switching across sessions with `prefix P`
+- Fuzzy pane switching under `prefix P`
 - Searchable tmux command palette under `prefix C-p`
 - WSL clipboard integration through `win32yank.exe`
 - Rosé Pine Main/Dawn switching based on terminal events or time
