@@ -1,0 +1,9 @@
+[
+  {
+    "title": "All tmux key bindings",
+    "category": "Help",
+    "action": {
+      "tmux": "list-keys"
+    }
+  }
+]

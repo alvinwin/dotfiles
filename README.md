@@ -26,8 +26,8 @@ ln -s ~/dotfiles/nvim ~/.config/nvim
 
 - Mouse support and vi-style copy mode
 - Vim-style pane navigation and resizing
-- Fuzzy pane switching under `prefix P`
-- Searchable tmux command palette under `prefix C-p`
+- Fuzzy pane switching under `prefix f`
+- Searchable tmux command palette under `prefix ?`
 - WSL clipboard integration through `win32yank.exe`
 - Rosé Pine Main/Dawn switching based on terminal events or time
 - Rosé Pine, Dawn, and plain manual choices under `prefix T`
@@ -60,7 +60,7 @@ bun install --cwd ~/.tmux/plugins/tmux-palette --frozen-lockfile
 ```
 
 Palette behavior and theme settings are tracked under `tmux-palette/`. To
-remove the integration, remove the `C-p` binding from `.tmux.conf`, unlink
+remove the integration, remove the `?` and `f` bindings from `.tmux.conf`, unlink
 `~/.config/tmux-palette`, and delete the plugin checkout. Bun can remain for
 other tools or be removed separately from `~/.local/bin/bun`.
 
