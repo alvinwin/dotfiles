@@ -1,7 +1,23 @@
 # Dotfiles
 
-Personal tmux and Neovim configuration for a terminal-first WSL development
-environment.
+Personal shell, Git, terminal, tmux, Neovim, and OpenCode configuration for
+terminal-first WSL and Linux development environments.
+
+## Linux starter pack
+
+`bootstrap.sh` supports Pop!_OS 24.04, Fedora KDE 44, and EndeavourOS. It
+installs the minimal package set in `bootstrap/packages/`, installs MesloLGS
+Nerd Font Mono and OpenCode when absent, and links the tracked configuration.
+Reruns are safe: existing conflicting files are reported and preserved.
+
+```sh
+./bootstrap.sh --dry-run
+./bootstrap.sh
+```
+
+See [`docs/linux-install.md`](docs/linux-install.md) for the exact encrypted
+500 GB Samsung installation procedure, first-boot checklist, and verification
+commands.
 
 ## Layout
 
@@ -11,6 +27,10 @@ environment.
 | `tmux/` | `~/.config/tmux/` |
 | `tmux-palette/` | `~/.config/tmux-palette/` |
 | `nvim/` | `~/.config/nvim/` |
+| `opencode/` | `~/.config/opencode/` |
+| `kitty/` | `~/.config/kitty/` |
+| `shell/bashrc` | included by `~/.bashrc` |
+| `git/gitconfig` | included by `~/.gitconfig` |
 
 The tracked files are the source of truth. The live paths may be symlinked to
 the repository after any existing files have been backed up:
@@ -31,6 +51,7 @@ ln -s ~/dotfiles/nvim ~/.config/nvim
 - Fuzzy pane switching under `prefix f`
 - Searchable tmux command palette under `prefix ?`
 - WSL clipboard integration through `win32yank.exe`
+- Linux Wayland clipboard integration through `wl-copy`
 - Fixed Tokyo Night Moon theme with a quiet one-line status
 - Tokyo Night Moon reload under `prefix T` and plain fallback under `prefix U`
 - tmux-thumbs integration for selecting paths, URLs, hashes, and numbers

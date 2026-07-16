@@ -1,0 +1,2 @@
+# Pop!_OS 24.04 / Ubuntu-family names.
+fd-find

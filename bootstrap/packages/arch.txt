@@ -1,0 +1,2 @@
+# EndeavourOS / Arch-family names.
+fd

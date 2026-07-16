@@ -1,0 +1,12 @@
+# Shared interactive shell defaults. Machine-specific settings stay in ~/.bashrc.
+case $- in
+  *i*) ;;
+  *) return ;;
+esac
+
+export EDITOR=nvim
+export VISUAL=nvim
+export PATH="$HOME/.local/bin:$PATH"
+
+alias ll='ls -alF'
+alias gs='git status --short --branch'

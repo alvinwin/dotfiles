@@ -1,0 +1,12 @@
+# Packages whose names are shared by all supported distributions.
+git
+tmux
+neovim
+curl
+unzip
+ripgrep
+fzf
+wl-clipboard
+kitty
+fontconfig
+perl
