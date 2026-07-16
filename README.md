@@ -1,14 +1,45 @@
-# Dotfiles Repository
+# Dotfiles
 
-This repository contains my personal dotfiles--focusing on a `tmux` configuration that enhances the command-line interface by enabling features such as mouse support, `Vi`-like key bindings, and aesthetic enhancements through themes.
+Personal tmux and Neovim configuration for a terminal-first WSL development
+environment.
 
+## Layout
 
-- **`.tmux.conf`**: `Tmux` configuration file with enhanced keybindings and theme settings.
+| Repository path | Live path |
+| --- | --- |
+| `.tmux.conf` | `~/.tmux.conf` |
+| `tmux/` | `~/.config/tmux/` |
+| `nvim/` | `~/.config/nvim/` |
 
-## Features
+The tracked files are the source of truth. The live paths may be symlinked to
+the repository after any existing files have been backed up:
 
-- **Mouse Support**: Enable interaction with tmux panes and windows using the mouse.
-- **Custom Prefix**: Change the global prefix key to `Control-Space` to start command sequences, making it more intuitive.
-- **`Vim`-style Navigation**: Navigate between `tmux` panes using `Ctrl-h/j/k/l`, mimicking `Vim`'s navigation to enhance usability and ergonomics.
-- **`Vi` Keybindings**: Set command mode keys to `Vi` for consistency with `Vim` usage for selecting the active window.
-- **Theme Support**: Includes configuration for the `rose-pine` theme and setup for other `tmux` themes via `TPM` (`Tmux Plugin Manager`).
+```sh
+ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
+ln -s ~/dotfiles/tmux ~/.config/tmux
+ln -s ~/dotfiles/nvim ~/.config/nvim
+```
+
+## Tmux
+
+- Mouse support and vi-style copy mode
+- Vim-style pane navigation and resizing
+- Fuzzy switching across sessions with `prefix P`
+- WSL clipboard integration through `win32yank.exe`
+- Rosé Pine Main/Dawn switching based on terminal events or time
+- Rosé Pine, Dawn, and plain manual choices under `prefix T`
+- tmux-thumbs integration for selecting paths, URLs, hashes, and numbers
+
+The tmux-thumbs plugin is installed separately at
+`~/.tmux/plugins/tmux-thumbs`.
+
+## Neovim
+
+- WSL clipboard integration through `win32yank.exe`
+- lazy.nvim plugin management
+- Telescope, Harpoon, Flash, WhichKey, Gitsigns, and Markview
+- Rosé Pine synchronized with the active tmux variant
+- Minimal lualine status display
+
+Neovim installs lazy.nvim and the declared plugins on first launch. Plugin
+versions are recorded in `nvim/lazy-lock.json`.
