@@ -37,7 +37,7 @@ The tmux-thumbs plugin is installed separately at
 
 - WSL clipboard integration through `win32yank.exe`
 - lazy.nvim plugin management
-- Telescope, Harpoon, Flash, WhichKey, Gitsigns, Markview, and Smear Cursor
+- Telescope, Harpoon, Flash, WhichKey, Gitsigns, Markview, Smear Cursor, and Hardtime
 - Rosé Pine synchronized with the active tmux variant
 - Minimal lualine status display
 

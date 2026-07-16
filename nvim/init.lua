@@ -213,6 +213,19 @@ if lazy_ok then
       },
     },
     {
+      "m4xshen/hardtime.nvim",
+      lazy = false,
+      dependencies = { "MunifTanjim/nui.nvim" },
+      opts = {
+        restriction_mode = "hint",
+        disable_mouse = false,
+      },
+      keys = {
+        { "<leader>uh", "<cmd>Hardtime toggle<cr>", desc = "Toggle motion coaching" },
+        { "<leader>ur", "<cmd>Hardtime report<cr>", desc = "Motion coaching report" },
+      },
+    },
+    {
       "nvim-lualine/lualine.nvim",
       event = "VeryLazy",
       config = function()
