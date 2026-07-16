@@ -31,8 +31,8 @@ ln -s ~/dotfiles/nvim ~/.config/nvim
 - Fuzzy pane switching under `prefix f`
 - Searchable tmux command palette under `prefix ?`
 - WSL clipboard integration through `win32yank.exe`
-- Rosé Pine Main/Dawn switching based on terminal events or time
-- Rosé Pine, Dawn, and plain manual choices under `prefix T`
+- Fixed Tokyo Night Moon theme with a quiet one-line status
+- Tokyo Night Moon reload under `prefix T` and plain fallback under `prefix U`
 - tmux-thumbs integration for selecting paths, URLs, hashes, and numbers
 
 The tmux-thumbs plugin is installed separately at
@@ -73,8 +73,8 @@ other tools or be removed separately from `~/.local/bin/bun`.
 - Response composition below the current line or visual selection with `<leader>cr`
 - lazy.nvim plugin management
 - Telescope, Harpoon, Flash, WhichKey, Gitsigns, Markview, Smear Cursor, and Hardtime
-- Rosé Pine synchronized with the active tmux variant
-- Minimal lualine status display
+- Opaque Tokyo Night Moon theme aligned with tmux
+- Neovim statusline hidden to keep terminal chrome minimal
 
 Neovim installs lazy.nvim and the declared plugins on first launch. Plugin
 versions are recorded in `nvim/lazy-lock.json`.

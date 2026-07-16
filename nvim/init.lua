@@ -40,6 +40,9 @@ opt.scrolloff = 4
 opt.sidescrolloff = 4
 opt.confirm = true
 opt.mouse = ""
+opt.laststatus = 0
+opt.showmode = false
+opt.ruler = false
 
 local function clean_wrapped_prose()
   local mode = vim.fn.mode()
@@ -227,41 +230,17 @@ if lazy_ok then
       end,
     },
     {
-      "rose-pine/neovim",
-      name = "rose-pine",
+      "folke/tokyonight.nvim",
       lazy = false,
       priority = 1000,
       config = function()
-        require("rose-pine").setup({
-          variant = "auto",
-          dark_variant = "main",
-          dim_inactive_windows = true,
-          extend_background_behind_borders = true,
+        require("tokyonight").setup({
+          style = "moon",
+          transparent = false,
+          dim_inactive = true,
         })
-
-        local function apply_rose_pine()
-          local variant
-          if vim.env.TMUX and vim.fn.executable("tmux") == 1 then
-            variant = vim.trim(vim.fn.system({ "tmux", "show-option", "-gqv", "@rose_pine_variant" }))
-          end
-          if variant ~= "dawn" and variant ~= "dark" then
-            local hour = tonumber(os.date("%H"))
-            variant = hour and hour >= 7 and hour < 18 and "dawn" or "dark"
-          end
-
-          local background = variant == "dawn" and "light" or "dark"
-          if vim.o.background ~= background or vim.g.rose_pine_tmux_variant ~= variant then
-            vim.o.background = background
-            vim.g.rose_pine_tmux_variant = variant
-            vim.cmd.colorscheme("rose-pine")
-          end
-        end
-
-        apply_rose_pine()
-        vim.api.nvim_create_autocmd("FocusGained", {
-          desc = "Follow the active tmux Rose Pine variant",
-          callback = apply_rose_pine,
-        })
+        vim.o.background = "dark"
+        vim.cmd.colorscheme("tokyonight-moon")
       end,
     },
     {
@@ -284,38 +263,6 @@ if lazy_ok then
         { "<leader>uh", "<cmd>Hardtime toggle<cr>", desc = "Toggle motion coaching" },
         { "<leader>ur", "<cmd>Hardtime report<cr>", desc = "Motion coaching report" },
       },
-    },
-    {
-      "nvim-lualine/lualine.nvim",
-      event = "VeryLazy",
-      config = function()
-        local function macro_recording()
-          local register = vim.fn.reg_recording()
-          return register == "" and "" or "recording @" .. register
-        end
-
-        require("lualine").setup({
-          options = {
-            theme = "auto",
-            globalstatus = true,
-            section_separators = "",
-            component_separators = "",
-          },
-          sections = {
-            lualine_a = { "mode" },
-            lualine_b = { "branch" },
-            lualine_c = { { "filename", path = 1 } },
-            lualine_x = { macro_recording, "diagnostics" },
-            lualine_y = { "progress" },
-            lualine_z = { "location" },
-          },
-        })
-
-        vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
-          desc = "Refresh macro recording state in the statusline",
-          callback = function() require("lualine").refresh() end,
-        })
-      end,
     },
     {
       "lewis6991/gitsigns.nvim",
