@@ -26,6 +26,8 @@ ln -s ~/dotfiles/nvim ~/.config/nvim
 
 - Mouse support and vi-style copy mode
 - Vim-style pane navigation and resizing
+- Context-rich native session and window trees under `prefix s` and `prefix w`
+- Clean/default tree view toggle under `prefix v`
 - Fuzzy pane switching under `prefix f`
 - Searchable tmux command palette under `prefix ?`
 - WSL clipboard integration through `win32yank.exe`
