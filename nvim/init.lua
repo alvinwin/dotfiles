@@ -100,6 +100,7 @@ if lazy_ok then
           { "<leader>m", group = "markdown" },
           { "<leader>p", group = "plugins" },
           { "<leader>q", group = "macros/registers" },
+          { "<leader>u", group = "ui" },
         },
       },
       keys = {
@@ -202,6 +203,14 @@ if lazy_ok then
           callback = apply_rose_pine,
         })
       end,
+    },
+    {
+      "sphamba/smear-cursor.nvim",
+      event = "VeryLazy",
+      opts = {},
+      keys = {
+        { "<leader>uc", "<cmd>SmearCursorToggle<cr>", desc = "Toggle cursor animation" },
+      },
     },
     {
       "nvim-lualine/lualine.nvim",
