@@ -230,17 +230,18 @@ if lazy_ok then
       end,
     },
     {
-      "folke/tokyonight.nvim",
+      "rose-pine/neovim",
+      name = "rose-pine",
       lazy = false,
       priority = 1000,
       config = function()
-        require("tokyonight").setup({
-          style = "moon",
-          transparent = false,
-          dim_inactive = true,
+        require("rose-pine").setup({
+          variant = "moon",
+          dim_inactive_windows = true,
+          styles = { transparency = false },
         })
         vim.o.background = "dark"
-        vim.cmd.colorscheme("tokyonight-moon")
+        vim.cmd.colorscheme("rose-pine-moon")
       end,
     },
     {
