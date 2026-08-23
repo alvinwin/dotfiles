@@ -8,5 +8,6 @@ ripgrep
 fzf
 wl-clipboard
 kitty
+zoxide
 fontconfig
 perl

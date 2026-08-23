@@ -88,6 +88,8 @@ link_config "$repo_dir/tmux-palette" "$HOME/.config/tmux-palette"
 link_config "$repo_dir/nvim" "$HOME/.config/nvim"
 link_config "$repo_dir/opencode" "$HOME/.config/opencode"
 link_config "$repo_dir/kitty" "$HOME/.config/kitty"
+link_config "$HOME/.config/kitty/themes/rose-pine-dark.conf" \
+  "$HOME/.config/kitty/current-theme.conf"
 
 add_include "$HOME/.bashrc" "source \"$repo_dir/shell/bashrc\""
 add_git_include "$HOME/.gitconfig" "$repo_dir/git/gitconfig"
